@@ -269,6 +269,19 @@
     document.body.appendChild(card);
     document.body.appendChild(show);
     render();
+    // Update on any page change or click as well as on a timer, because browsers slow timers on background tabs.
+    var queued = false;
+    function soon() {
+      if (queued) return;
+      queued = true;
+      Promise.resolve().then(function () { queued = false; tick(); });
+    }
+    function ours(n) { return n === ring || n === show || card.contains(n); }
+    new MutationObserver(function (records) {
+      // Ignore the guide's own updates, or it would trigger itself forever.
+      for (var i = 0; i < records.length; i++) { if (!ours(records[i].target)) { soon(); return; } }
+    }).observe(document.body, { childList: true, subtree: true, attributes: true, characterData: true });
+    document.addEventListener("click", function () { setTimeout(tick, 60); setTimeout(tick, 420); });
     setInterval(tick, 200);
     addEventListener("scroll", tick, true);
     addEventListener("resize", tick);
