@@ -249,9 +249,9 @@
     if (wait) wait.style.display = (!s.final && !current) ? "block" : "none";
     if (hidden || !current) { ring.style.display = "none"; return; }
     if (scrolledFor !== idx) {
+      // "nearest" also scrolls inner panels (tables, lists), not just the page.
       scrolledFor = idx;
-      var r0 = current.getBoundingClientRect();
-      if (r0.top < 0 || r0.bottom > innerHeight) current.scrollIntoView({ block: "center", behavior: "smooth" });
+      current.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
     var r = current.getBoundingClientRect();
     ring.style.display = "block";
