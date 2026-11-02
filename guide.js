@@ -159,7 +159,7 @@
   // ---------- UI ----------
   var css = "" +
     ".pg-ring{position:fixed;pointer-events:none;z-index:2147483646;border:3px solid #f59e0b;border-radius:9px;" +
-    "box-shadow:0 0 0 4px rgba(245,158,11,.22),0 0 22px rgba(245,158,11,.55);transition:all .18s ease;animation:pgpulse 1.5s ease-in-out infinite}" +
+    "box-shadow:0 0 0 4px rgba(245,158,11,.22),0 0 22px rgba(245,158,11,.55);animation:pgpulse 1.5s ease-in-out infinite}" +
     "@keyframes pgpulse{0%,100%{box-shadow:0 0 0 4px rgba(245,158,11,.22),0 0 18px rgba(245,158,11,.45)}50%{box-shadow:0 0 0 9px rgba(245,158,11,.10),0 0 28px rgba(245,158,11,.7)}}" +
     ".pg-card{position:fixed;bottom:20px;left:20px;width:320px;z-index:2147483647;background:#14161c;color:#f4f4f5;" +
     "border-radius:12px;padding:14px 16px 12px;box-shadow:0 12px 32px rgba(0,0,0,.28);" +
