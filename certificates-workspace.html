@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solitude — Certificates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF;
+  --surface:#F8FAFC;
+  --surface-2:#F1F5F9;
+  --border:#E5E7EB;
+  --border-soft:#EEF1F5;
+  --ink:#0F172A;
+  --ink-2:#1E293B;
+  --muted:#64748B;
+  --muted-2:#94A3B8;
+  --blue:#2563EB;
+  --blue-strong:#1D4ED8;
+  --blue-tint:#EFF6FF;
+  --blue-line:#BFDBFE;
+  --green:#16A34A;
+  --green-tint:#DCFCE7;
+  --green-ink:#15803D;
+  --violet:#7C3AED;
+  --violet-tint:#EDE9FE;
+  --radius:8px;
+  --radius-sm:7px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);color:var(--ink);
+  font-size:13px;line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input{font:inherit;color:inherit}
+svg{display:block;flex:none}
+.app{display:flex;flex-direction:column;height:100vh}
+
+/* ── TOP BAR ───────────────────────────────────────── */
+.topbar{
+  height:44px;flex:none;display:flex;align-items:center;gap:10px;
+  padding:0 14px 0 18px;border-bottom:1px solid var(--border);background:#fff;
+}
+.brand{display:flex;align-items:center;gap:10px;margin-right:16px}
+.brand-name{font-size:19px;font-weight:700;letter-spacing:-.02em;color:#161B33}
+.nav{display:flex;align-items:center;gap:8px}
+.nav-item{
+  padding:6px 13px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;
+  color:var(--muted);transition:background .15s,color .15s;white-space:nowrap;
+}
+.nav-item:hover{background:var(--surface-2);color:var(--ink-2)}
+.nav-item.active{background:var(--blue-strong);color:#fff}
+.nav-item.active:hover{background:#1E40AF;color:#fff}
+.spacer{flex:1}
+.top-right{display:flex;align-items:center;gap:15px}
+.help{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;font-weight:500;padding:5px 4px;border-radius:6px}
+.help:hover{color:var(--ink-2)}
+.invite{
+  display:flex;align-items:center;gap:6px;background:var(--violet-tint);color:var(--violet);
+  font-size:13px;font-weight:600;padding:6px 11px;border-radius:var(--radius-sm);
+}
+.invite:hover{background:#E2D9FD}
+.user{display:flex;align-items:center;gap:8px;padding:3px 4px 3px 3px;border-radius:20px}
+.user:hover{background:var(--surface-2)}
+.avatar{
+  width:23px;height:23px;border-radius:50%;background:#1E3A8A;color:#fff;
+  font-size:9.5px;font-weight:700;letter-spacing:.02em;
+  display:flex;align-items:center;justify-content:center;
+}
+.user-name{font-size:13px;font-weight:600;color:var(--ink-2)}
+
+/* ── SHELL ─────────────────────────────────────────── */
+.shell{flex:1;display:flex;min-height:0}
+
+/* ── SIDEBAR ───────────────────────────────────────── */
+.sidebar{
+  width:358px;flex:none;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;min-height:0;background:#fff;
+}
+.sb-head{display:flex;align-items:center;gap:8px;padding:16px 16px 12px}
+.sb-title{font-size:15px;font-weight:700;letter-spacing:-.01em;flex:1}
+.icon-btn{
+  width:30px;height:30px;border:1px solid var(--border);border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;color:var(--ink-2);
+  transition:background .15s,border-color .15s;
+}
+.icon-btn:hover{background:var(--surface);border-color:#CBD5E1}
+.btn-primary{
+  display:flex;align-items:center;gap:5px;background:var(--blue);color:#fff;
+  font-size:13px;font-weight:600;padding:0 12px;height:30px;border-radius:var(--radius);
+}
+.btn-primary:hover{background:var(--blue-strong)}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 14px 6px}
+.chip{
+  display:flex;align-items:center;gap:5px;height:27px;padding:0 8px;
+  border:1px solid var(--border);border-radius:999px;background:#fff;
+  font-size:12px;font-weight:500;color:var(--ink-2);
+}
+.chip:hover{background:var(--surface);border-color:#CBD5E1}
+.chip svg{color:var(--muted)}
+.chip.on{background:var(--blue-tint);border-color:#93C5FD;color:var(--blue)}
+.chip.on svg{color:var(--blue)}
+.chip .cap{max-width:118px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.sb-tabs{display:flex;border-bottom:1px solid var(--border)}
+.sb-tab{
+  flex:1;height:38px;font-size:13px;font-weight:600;color:var(--muted);
+  border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:color .15s;
+}
+.sb-tab:hover{color:var(--ink-2)}
+.sb-tab.active{color:var(--ink);border-bottom-color:var(--blue)}
+
+.status-row{display:flex;align-items:center;gap:7px;padding:9px 14px 8px}
+.stat{
+  display:flex;align-items:center;gap:5px;padding:4px 8px;border-radius:6px;
+  font-size:12.5px;font-weight:500;color:var(--muted);white-space:nowrap;
+}
+.stat:hover{background:var(--surface-2)}
+.stat.active{background:var(--blue-tint);color:var(--blue);font-weight:600}
+.stat .n{color:var(--muted-2);font-weight:500}
+.stat.active .n{color:#60A5FA}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+.search{
+  position:relative;margin:0 14px 10px;
+}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted-2)}
+.search input{
+  width:100%;height:34px;border:1px solid var(--border);border-radius:var(--radius);
+  padding:0 12px 0 32px;font-size:13px;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.search input::placeholder{color:var(--muted-2)}
+.search input:focus{border-color:#93C5FD;box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+
+.sort-row{display:flex;align-items:center;gap:8px;padding:0 16px 8px;color:var(--muted-2)}
+.sort-btn{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--muted);padding:3px 6px;border-radius:5px}
+.sort-btn:hover{background:var(--surface-2);color:var(--ink-2)}
+.sort-btn.active{color:var(--blue)}
+
+.cert-list{flex:1;overflow-y:auto;padding:0 0 16px}
+.cert{
+  border:2px solid transparent;border-radius:var(--radius);padding:11px 14px;
+  cursor:pointer;transition:background .15s,border-color .15s;margin-bottom:4px;
+}
+.cert:hover{background:var(--surface)}
+.cert.sel{background:var(--blue-tint);border-color:#3B82F6}
+.cert-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.cert-name{
+  flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--ink);
+  overflow:hidden;white-space:nowrap;text-overflow:clip;letter-spacing:-.01em;
+}
+.badge{
+  flex:none;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:999px;
+  background:var(--green-tint);color:var(--green-ink);
+}
+.badge.proc{background:#FEF3C7;color:#B45309}
+.badge.arch{background:#F1F5F9;color:#64748B}
+
+/* ERP sync indicators */
+.erp-pill{
+  display:inline-flex;align-items:center;gap:4px;flex:none;
+  font-size:10.5px;font-weight:700;letter-spacing:.02em;
+  padding:2px 7px 2px 5px;border-radius:999px;
+  background:#EEF2FF;color:#4338CA;
+}
+.erp-pill svg{color:#4F46E5}
+.cert-lot-row{display:flex;align-items:center;gap:8px;margin-left:15px}
+.cert-lot-row .cert-meta{margin-left:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stat .ico{color:#818CF8;display:flex}
+.stat.active .ico{color:var(--blue)}
+.status-row{flex-wrap:wrap;row-gap:2px}
+
+.meta-item .pill{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;
+}
+.pill.synced{background:#EEF2FF;color:#4338CA}
+.pill.unsynced{background:#F1F5F9;color:#64748B}
+
+.btn-push.done{
+  background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;cursor:default;
+  padding:0 12px;
+}
+.btn-push.done:hover{background:#F0FDF4}
+
+/* ── ERP UPLOAD VIEW ──────────────────────────────── */
+.erp-view{flex:1;min-height:0;overflow-y:auto;padding:20px 22px 30px}
+
+.erp-summary{
+  display:flex;align-items:stretch;border:1px solid var(--border);
+  border-radius:10px;background:var(--surface);overflow:hidden;margin-bottom:24px;
+}
+.sum-cell{padding:13px 18px;flex:1;min-width:0;border-left:1px solid var(--border)}
+.sum-cell:first-child{border-left:0;flex:0 0 200px;background:#F0FDF4}
+.sum-k{font-size:11px;font-weight:600;color:var(--muted-2);letter-spacing:.04em;text-transform:uppercase;margin-bottom:5px}
+.sum-v{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sum-sub{font-size:11.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sum-ok{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--green-ink)}
+
+.sec{margin-bottom:26px}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:9px}
+.sec-head h3{font-size:13.5px;font-weight:700;letter-spacing:-.01em}
+.sec-head p{font-size:12.5px;color:var(--muted)}
+
+.dt{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.dt-head,.dt-row{display:grid;align-items:center}
+.dt-head{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;
+}
+.dt-head>div{padding:9px 14px}
+.dt-row{border-bottom:1px solid var(--border-soft);font-size:13px}
+.dt-row:last-child{border-bottom:0}
+.dt-row:hover{background:#FCFDFE}
+.dt-row>div{padding:11px 14px;min-width:0}
+.mod-name{font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px}
+.mod-ico{
+  width:24px;height:24px;border-radius:6px;flex:none;
+  display:flex;align-items:center;justify-content:center;background:#EEF2FF;color:#4F46E5;
+}
+.code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;
+  color:#4338CA;background:#EEF2FF;padding:2px 6px;border-radius:5px;white-space:nowrap;
+}
+.code.plain{background:var(--surface-2);color:var(--ink-2)}
+.dim{color:var(--muted)}
+.num{font-weight:700;font-variant-numeric:tabular-nums}
+.st{
+  display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;
+  padding:3px 9px;border-radius:999px;white-space:nowrap;
+}
+.st.written{background:#DCFCE7;color:#15803D}
+.st.updated{background:#DBEAFE;color:#1D4ED8}
+.st.matched{background:#EEF2FF;color:#4338CA}
+.st.warn{background:#FEF3C7;color:#B45309}
+.st.skip{background:var(--surface-2);color:var(--muted)}
+
+.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.map-row{display:grid;grid-template-columns:200px 1fr;align-items:center;gap:10px;
+  padding:9px 14px;border-bottom:1px solid var(--border-soft);font-size:12.5px}
+.map-grid>div:nth-child(2n){border-left:1px solid var(--border)}
+.map-row .from{color:var(--ink-2);font-weight:600;display:flex;align-items:center;gap:7px}
+.map-row .arw{color:var(--muted-2);flex:none}
+.map-row .to{display:flex;align-items:center;gap:8px;min-width:0}
+.map-row .ex{color:var(--muted);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.skips{display:flex;flex-direction:column;gap:7px}
+.skip-row{
+  display:flex;align-items:center;gap:10px;padding:10px 13px;
+  border:1px solid var(--border);border-radius:9px;background:var(--surface);font-size:12.5px;
+}
+.skip-row .st{flex:none}
+.skip-row b{font-weight:600;color:var(--ink-2);flex:0 0 190px}
+.skip-row>span:last-child{color:var(--muted);flex:1}
+
+.erp-empty{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 24px;
+}
+.erp-empty .ring{
+  width:56px;height:56px;border-radius:50%;background:var(--surface-2);color:var(--muted-2);
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+}
+.erp-empty h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.erp-empty p{font-size:13px;color:var(--muted);max-width:400px;line-height:1.6;margin-bottom:16px}
+
+/* confirm dialog */
+.overlay{
+  position:fixed;inset:0;background:rgba(15,23,42,.40);z-index:80;
+  display:none;align-items:center;justify-content:center;
+}
+.overlay.open{display:flex}
+.dialog{
+  width:480px;background:#fff;border-radius:12px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(15,23,42,.28);
+  animation:pop .16s ease-out;
+}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+.dialog-head{display:flex;align-items:flex-start;gap:12px;padding:20px 22px 0}
+.dialog-head h3{font-size:15.5px;font-weight:700;letter-spacing:-.01em}
+.dialog-icon{
+  width:34px;height:34px;border-radius:9px;background:#F0FDF4;color:var(--green);
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.dialog-body{padding:10px 22px 20px 68px;font-size:13px;color:var(--muted);line-height:1.55}
+.dialog-body .warn{
+  display:flex;gap:8px;margin-top:12px;padding:9px 11px;border-radius:8px;
+  background:#FFFBEB;border:1px solid #FDE68A;color:#92400E;font-size:12.5px;font-weight:500;
+}
+.dialog-body .warn svg{flex:none;color:#D97706;margin-top:1px}
+.dialog-body dl{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin-top:10px}
+.dialog-body dt{color:var(--muted-2);font-size:12.5px}
+.dialog-body dd{color:var(--ink);font-weight:600;font-size:12.5px}
+.dialog-foot{
+  display:flex;justify-content:flex-end;gap:9px;padding:14px 22px;
+  background:var(--surface);border-top:1px solid var(--border);
+}
+.btn-ghost{
+  height:33px;padding:0 14px;border:1px solid var(--border);border-radius:var(--radius);
+  background:#fff;font-size:13px;font-weight:600;color:var(--ink-2);
+}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-go{
+  height:33px;padding:0 15px;border-radius:var(--radius);
+  background:var(--green);color:#fff;font-size:13px;font-weight:600;
+  display:flex;align-items:center;gap:6px;
+}
+.btn-go:hover{background:#15803D}
+.cert-meta{font-size:12px;color:var(--muted);margin-left:15px;line-height:1.6}
+
+/* ── MAIN ──────────────────────────────────────────── */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;min-height:0;background:#fff}
+
+.doc-head{
+  height:55px;flex:none;display:flex;align-items:center;gap:10px;padding:0 16px 0 22px;
+}
+.doc-title{
+  display:flex;align-items:center;gap:11px;font-size:16px;font-weight:600;
+  letter-spacing:-.01em;min-width:0;
+}
+.doc-title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.doc-title svg{color:var(--muted)}
+.tool{
+  display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink-2);
+  padding:6px 9px;border-radius:var(--radius-sm);transition:background .15s;
+}
+.tool:hover{background:var(--surface-2)}
+.tool svg{color:var(--muted)}
+.tool.ghost{color:var(--muted-2);padding:6px}
+.tool.ghost:hover{color:var(--ink-2)}
+.btn-push{
+  display:flex;align-items:center;gap:6px;background:var(--green);color:#fff;
+  font-size:13px;font-weight:600;height:31px;padding:0 13px;border-radius:var(--radius-sm);
+  margin-left:6px;
+}
+.btn-push:hover{background:#15803D}
+
+.meta{
+  flex:none;height:33px;display:flex;align-items:center;gap:30px;
+  padding:0 22px;background:var(--surface);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.meta-item{display:flex;align-items:center;gap:6px;font-size:12.5px;white-space:nowrap}
+.meta-item b{font-weight:600;color:var(--ink)}
+.meta-item i{font-style:normal;color:var(--muted);font-weight:500}
+
+.view-tabs{flex:none;display:flex;gap:26px;padding:0 22px;border-bottom:1px solid var(--border)}
+.vtab{
+  height:47px;font-size:14px;font-weight:600;color:var(--muted);
+  border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:color .15s;
+}
+.vtab:hover{color:var(--ink-2)}
+.vtab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+.ctl{flex:none;display:flex;align-items:center;gap:16px;padding:4px 22px 0}
+.ctl-search{position:relative;width:255px;flex:none}
+.ctl-search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted-2)}
+.ctl-search input{
+  width:100%;height:33px;border:1px solid var(--border);border-radius:var(--radius);
+  padding:0 12px 0 32px;font-size:13px;outline:none;background:#fff;transition:border-color .15s,box-shadow .15s;
+}
+.ctl-search input::placeholder{color:var(--muted-2)}
+.ctl-search input:focus{border-color:#93C5FD;box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+
+.lot-tabs{display:flex;gap:8px}
+.lot{
+  height:33px;padding:0 12px;font-size:13.5px;font-weight:600;color:var(--muted);
+  border-bottom:2.5px solid transparent;border-radius:4px 4px 0 0;transition:color .15s;
+}
+.lot:hover{color:var(--ink-2)}
+.lot.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+.filter-btn{
+  display:flex;align-items:center;gap:7px;height:33px;padding:0 13px;
+  border:1px solid var(--border);border-radius:var(--radius);
+  font-size:13px;font-weight:600;color:var(--ink-2);background:#fff;
+}
+.filter-btn:hover{background:var(--surface);border-color:#CBD5E1}
+.filter-btn.on{background:var(--blue-tint);border-color:#93C5FD;color:var(--blue)}
+.filter-btn svg{color:var(--muted)}
+.filter-btn.on svg{color:var(--blue)}
+
+/* menu */
+.menu-wrap{position:relative}
+.menu{
+  position:absolute;top:38px;left:0;z-index:40;min-width:196px;background:#fff;
+  border:1px solid var(--border);border-radius:10px;padding:5px;
+  box-shadow:0 10px 28px rgba(15,23,42,.13),0 2px 6px rgba(15,23,42,.06);
+  display:none;
+}
+.menu.open{display:block}
+.menu-item{
+  display:flex;align-items:center;gap:9px;width:100%;padding:7px 9px;border-radius:6px;
+  font-size:13px;font-weight:500;color:var(--ink-2);text-align:left;
+}
+.menu-item:hover{background:var(--surface-2)}
+.menu-item .tick{width:14px;color:var(--blue);opacity:0}
+.menu-item.on .tick{opacity:1}
+
+/* ── TABLE ─────────────────────────────────────────── */
+.table-wrap{flex:1;min-height:0;display:flex;flex-direction:column;margin-top:19px}
+.grid{display:grid;grid-template-columns:172px 262px 162px 1fr;align-items:center}
+.thead{
+  flex:none;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  height:38px;background:#fff;
+}
+.th{
+  display:flex;align-items:center;gap:8px;height:38px;padding-left:20px;
+  font-size:12.5px;font-weight:600;color:var(--ink);position:relative;
+}
+.th:first-child{padding-left:24px}
+.th+.th::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:1px;background:var(--border)}
+.th.off{color:var(--muted-2)}
+.th-ico{display:flex;align-items:center;gap:6px;color:var(--muted-2)}
+.th-ico button{display:flex;padding:1px;border-radius:4px;transition:color .15s,background .15s}
+.th-ico button:hover{color:var(--ink-2);background:var(--surface-2)}
+.th-ico button.act{color:var(--blue)}
+
+.tbody{flex:1;overflow-y:auto}
+.tr{border-bottom:1px solid var(--border-soft);height:59px;cursor:default;transition:background .12s}
+.tr:hover{background:var(--surface)}
+.td{padding-left:20px;font-size:15px;color:var(--ink-2);position:relative;height:59px;display:flex;align-items:center}
+.td:first-child{padding-left:24px;font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.td+.td::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:transparent}
+.td.dim{color:var(--muted-2)}
+.td .lt{color:var(--muted)}
+
+.empty{padding:56px 24px;text-align:center;color:var(--muted)}
+.empty svg{margin:0 auto 12px;color:#CBD5E1}
+.empty h4{font-size:14px;font-weight:600;color:var(--ink-2);margin-bottom:4px}
+.empty p{font-size:13px}
+
+.tfoot{
+  flex:none;height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 22px;border-top:1px solid var(--border);background:#fff;
+}
+.count{font-size:13px;color:var(--muted);font-weight:500}
+.btn-out{
+  display:flex;align-items:center;gap:7px;height:33px;padding:0 14px;
+  border:1px solid var(--border);border-radius:var(--radius);
+  font-size:13px;font-weight:600;color:var(--ink-2);background:#fff;
+}
+.btn-out:hover{background:var(--surface);border-color:#CBD5E1}
+.btn-out svg{color:var(--muted)}
+
+/* multi-lot view */
+.mlv{flex:1;overflow:auto;padding:0}
+.mlv .grid2{display:grid;grid-template-columns:172px 1fr 1fr 130px;align-items:center}
+.mlv .th2{
+  display:flex;align-items:center;height:41px;padding-left:20px;font-size:13px;font-weight:600;
+  position:relative;
+}
+.mlv .th2:first-child{padding-left:24px}
+.mlv .th2+.th2::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:1px;background:var(--border)}
+.delta{font-size:12px;font-weight:600;padding:2px 7px;border-radius:999px}
+.delta.same{background:var(--surface-2);color:var(--muted)}
+.delta.up{background:#FEF3C7;color:#B45309}
+
+/* toast */
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(14px);
+  background:#0F172A;color:#fff;font-size:13px;font-weight:500;
+  padding:10px 16px;border-radius:9px;box-shadow:0 10px 30px rgba(15,23,42,.25);
+  display:flex;align-items:center;gap:9px;opacity:0;pointer-events:none;
+  transition:opacity .2s ease-out,transform .2s ease-out;z-index:100;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast svg{color:#4ADE80}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#DDE3EA;border-radius:8px;border:3px solid #fff}
+::-webkit-scrollbar-thumb:hover{background:#C7D0DA}
+::-webkit-scrollbar-track{background:transparent}
+:focus-visible{outline:2px solid #3B82F6;outline-offset:1px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="brand">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="4" y1="3" x2="28" y2="29" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#6D28D9"/></linearGradient></defs>
+        <rect x="6.2" y="2.6" width="14.6" height="14.6" rx="5" transform="rotate(24 13.5 9.9)" stroke="url(#lg)" stroke-width="3.1"/>
+        <rect x="11.2" y="14.8" width="14.6" height="14.6" rx="5" transform="rotate(24 18.5 22.1)" stroke="url(#lg)" stroke-width="3.1"/>
+      </svg>
+      <span class="brand-name">Solitude</span>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active">My Workspace</button>
+      <button class="nav-item">Activity</button>
+      <button class="nav-item">Analytics</button>
+    </nav>
+    <div class="spacer"></div>
+    <div class="top-right">
+      <button class="help">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        Help
+      </button>
+      <button class="invite">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+        Invite
+      </button>
+      <button class="user">
+        <span class="avatar">YK</span>
+        <span class="user-name">Yousef Kassem</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sb-head">
+        <h1 class="sb-title">Certificates</h1>
+        <button class="icon-btn" title="Inbox">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </button>
+        <button class="btn-primary" id="uploadBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Upload
+        </button>
+      </div>
+
+      <div class="chips">
+        <button class="chip">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M9 13h.01M15 9h.01M15 13h.01M10 21v-4h4v4"/></svg>
+          All Suppliers
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <button class="chip">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Date
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <button class="chip on">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="cap">Yousef Kassem (y...</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="sb-tabs">
+        <button class="sb-tab active" data-sbtab="latest">Latest</button>
+        <button class="sb-tab" data-sbtab="supplier">By Supplier</button>
+      </div>
+
+      <div class="status-row" id="statusRow"></div>
+
+      <div class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="certSearch" type="text" placeholder="Search certs, suppliers, PO, lot..." aria-label="Search certificates">
+      </div>
+
+      <div class="sort-row">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4M7 20V4M21 8l-4-4-4 4M17 4v16"/></svg>
+        <button class="sort-btn active" id="sortDate">Date
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" id="sortDateArrow"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </button>
+        <button class="sort-btn" id="sortSupplier">Supplier</button>
+      </div>
+
+      <div class="cert-list" id="certList"></div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="doc-head">
+        <div class="doc-title">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h6"/></svg>
+          <span id="docName">Certificate_2025_03_24_BatchNo_008_Iss_01.pdf</span>
+        </div>
+        <div class="spacer"></div>
+        <button class="tool ghost" title="Undo">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+        </button>
+        <button class="tool ghost" title="Redo">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+        </button>
+        <button class="tool" data-act="Opened source PDF">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="m14 9-2 3 2 3"/></svg>
+          Source PDF
+        </button>
+        <button class="tool" id="exportTop">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+          Export
+        </button>
+        <button class="tool" data-act="Draft email opened">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email
+        </button>
+        <button class="btn-push" id="pushBtn"></button>
+      </div>
+
+      <div class="meta">
+        <div class="meta-item"><i>Supplier:</i><b id="mSupplier">—</b></div>
+        <div class="meta-item"><i>Lot:</i><b id="mLot">S10841-LOT1</b></div>
+        <div class="meta-item"><i>Total Net Mass:</i><b id="mMass">—</b></div>
+        <div class="meta-item"><i>Model:</i><b id="mModel">Solitude S1-31B</b></div>
+        <div class="meta-item"><i>ERP:</i><span id="mErp"></span></div>
+      </div>
+
+      <div class="view-tabs">
+        <button class="vtab active" data-view="element">Element View</button>
+        <button class="vtab" data-view="multi">Multi Lot View</button>
+        <button class="vtab" data-view="erp">ERP Upload</button>
+      </div>
+
+      <!-- ELEMENT VIEW -->
+      <div id="elementView" style="flex:1;display:flex;flex-direction:column;min-height:0">
+        <div class="ctl">
+          <div class="ctl-search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="lotSearch" type="text" placeholder="Search lots..." aria-label="Search lots">
+          </div>
+          <div class="lot-tabs" id="lotTabs"></div>
+        </div>
+
+        <div class="ctl" style="padding-top:20px">
+          <div class="ctl-search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="elSearch" type="text" placeholder="Search elements..." aria-label="Search elements">
+          </div>
+          <div class="menu-wrap">
+            <button class="filter-btn" id="filterBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+              <span id="filterLabel">All Elements</span>
+            </button>
+            <div class="menu" id="filterMenu">
+              <button class="menu-item on" data-filter="all"><span class="tick">✓</span>All Elements</button>
+              <button class="menu-item" data-filter="major"><span class="tick">✓</span>Major (≥ 1 %)</button>
+              <button class="menu-item" data-filter="minor"><span class="tick">✓</span>Minor (&lt; 1 %)</button>
+              <button class="menu-item" data-filter="trace"><span class="tick">✓</span>Trace (mg/Kg)</button>
+              <button class="menu-item" data-filter="below"><span class="tick">✓</span>Below detection limit</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <div class="thead grid">
+            <div class="th">Element
+              <span class="th-ico">
+                <button data-eye="element" title="Hide column">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button data-sort="element" title="Sort">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4M7 20V4M21 8l-4-4-4 4M17 4v16"/></svg>
+                </button>
+              </span>
+            </div>
+            <div class="th">Result
+              <span class="th-ico">
+                <button data-eye="result" title="Hide column">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+                <button data-sort="result" title="Sort">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4M7 20V4M21 8l-4-4-4 4M17 4v16"/></svg>
+                </button>
+              </span>
+            </div>
+            <div class="th off" id="thMin">Min
+              <span class="th-ico">
+                <button data-eye="min" title="Show column"></button>
+                <button data-sort="min" title="Sort">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4M7 20V4M21 8l-4-4-4 4M17 4v16"/></svg>
+                </button>
+              </span>
+            </div>
+            <div class="th off" id="thMax">Max
+              <span class="th-ico">
+                <button data-eye="max" title="Show column"></button>
+                <button data-sort="max" title="Sort">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 16 4 4 4-4M7 20V4M21 8l-4-4-4 4M17 4v16"/></svg>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="tbody" id="tbody"></div>
+          <div class="tfoot">
+            <span class="count" id="count">25 elements displayed</span>
+            <button class="btn-out" id="exportBottom">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ERP UPLOAD VIEW -->
+      <div id="erpView" style="flex:1;display:none;flex-direction:column;min-height:0"></div>
+
+      <!-- MULTI LOT VIEW -->
+      <div id="multiView" style="flex:1;display:none;flex-direction:column;min-height:0">
+        <div class="table-wrap" style="margin-top:0">
+          <div class="thead grid2" style="display:grid;grid-template-columns:172px 1fr 1fr 130px">
+            <div class="th2">Element</div>
+            <div class="th2" id="ml1">S10841-LOT1</div>
+            <div class="th2" id="ml2">S10841-LOT2</div>
+            <div class="th2">Δ</div>
+          </div>
+          <div class="tbody" id="mlBody"></div>
+          <div class="tfoot">
+            <span class="count" id="mlCount">25 elements · 2 lots compared</span>
+            <button class="btn-out" id="exportMulti">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="overlay" id="pushModal">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="pushTitle">
+    <div class="dialog-head">
+      <span class="dialog-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </span>
+      <h3 id="pushTitle">Push this certificate to ERP?</h3>
+    </div>
+    <div class="dialog-body">
+      The full element analysis for every lot on this certificate will be written to ERP.
+      <dl>
+        <dt>Certificate</dt><dd id="dlgName">—</dd>
+        <dt>Lots</dt><dd id="dlgLots">—</dd>
+        <dt>Elements</dt><dd id="dlgEls">—</dd>
+      </dl>
+      <div class="warn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        <span>This can't be undone from Solitude. Once pushed, the certificate is locked and can't be pushed again.</span>
+      </div>
+    </div>
+    <div class="dialog-foot">
+      <button class="btn-ghost" id="pushCancel">Cancel</button>
+      <button class="btn-go" id="pushConfirm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        Push to ERP
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+/* ────────── SAMPLE DATA — Ni-base superalloy (718-type) powder CoA ────────── */
+const CERTS = [
+  { id:'c1', name:'Certificate_2025_03_24_BatchNo_008_Iss_01.pdf', short:'Certificate_2025_03_24_BatchNo_',
+    status:'scanned', date:'01 Apr 2026, 11:15 am', ts:1775038500000,
+    supplier:'—', mass:'—', model:'Solitude S1-31B', po:'4500221907', poLine:'10', cpty:null,
+    lots:['S10841-LOT1','S10841-LOT2'], erp:null },
+
+  { id:'c2', name:'Certificate_2025_03_19_BatchNo_007_Iss_02.pdf', short:'Certificate_2025_03_19_BatchNo_',
+    status:'scanned', date:'27 Mar 2026, 09:48 am', ts:1774604880000,
+    supplier:'Höganäs AB', mass:'480.0 kg', model:'Solitude S1-31B', po:'4500219884', poLine:'10', cpty:'CPTY-1042',
+    lots:['S10839-LOT4','S10839-LOT5'],
+    erp:{ at:'27 Mar 2026, 10:04 am', ref:'ERP-88214', by:'Yousef Kassem', seq:14, ms:1840, kb:61.4 } },
+
+  { id:'c3', name:'Certificate_2025_03_11_BatchNo_006_Iss_01.pdf', short:'Certificate_2025_03_11_BatchNo_',
+    status:'scanned', date:'14 Mar 2026, 04:22 pm', ts:1773504120000,
+    supplier:'Ironbridge Additive', mass:'1,250.0 kg', model:'Solitude S1-31B', po:'4500220145', poLine:'20', cpty:'CPTY-2277',
+    lots:['S10822-LOT2'],
+    erp:{ at:'14 Mar 2026, 04:41 pm', ref:'ERP-88109', by:'Yousef Kassem', seq:9, ms:1120, kb:31.8 } },
+
+  { id:'c4', name:'Certificate_2025_03_07_BatchNo_005_Iss_01.pdf', short:'Certificate_2025_03_07_BatchNo_',
+    status:'processing', date:'09 Mar 2026, 08:03 am', ts:1773043380000,
+    supplier:'Northfjord Powders', mass:'—', model:'Solitude S1-31B', po:'4500220990', poLine:'10', cpty:'CPTY-3391',
+    lots:['S10817-LOT1'], erp:null },
+
+  { id:'c5', name:'Certificate_2025_02_28_BatchNo_004_Iss_03.pdf', short:'Certificate_2025_02_28_BatchNo_',
+    status:'scanned', date:'02 Mar 2026, 01:37 pm', ts:1772458620000,
+    supplier:'Rheinwerk Alloys', mass:'640.0 kg', model:'Solitude S1-31B', po:'4500218773', poLine:'40', cpty:'CPTY-1875',
+    lots:['S10804-LOT3','S10804-LOT4'], erp:null },
+
+  { id:'c6', name:'Certificate_2025_02_12_BatchNo_002_Iss_01.pdf', short:'Certificate_2025_02_12_BatchNo_',
+    status:'archived', date:'14 Feb 2026, 08:41 am', ts:1770972060000,
+    supplier:'Höganäs AB', mass:'320.0 kg', model:'Solitude S1-30A', po:'4500216002', poLine:'10', cpty:'CPTY-1042',
+    lots:['S10788-LOT1'],
+    erp:{ at:'15 Feb 2026, 08:57 am', ref:'ERP-87542', by:'A. Morgan', seq:2, ms:980, kb:29.6 } }
+];
+
+/* Uploaded is an independent flag, not a pipeline stage: a certificate keeps
+   its Scanned / Processing / Archived status and additionally carries an ERP
+   record once pushed. Bucket counts therefore overlap with All by design. */
+const STATUSES = [
+  { key:'all',        label:'All'        },
+  { key:'scanned',    label:'Scanned'    },
+  { key:'processing', label:'Processing' },
+  { key:'archived',   label:'Archived'   },
+  { key:'uploaded',   label:'Uploaded'   }
+];
+
+let LOTS = CERTS[0].lots;
+
+const ELEMENTS = [
+  { el:'Al', l1:'0.47 %',        l2:'0.51 %',        min:'0.20 %',  max:'0.80 %'  },
+  { el:'Bi', l1:'< 0.5 mg/Kg',   l2:'< 0.5 mg/Kg',   min:'—',       max:'0.5 mg/Kg' },
+  { el:'B',  l1:'< 0.005 %',     l2:'< 0.005 %',     min:'—',       max:'0.006 %' },
+  { el:'C',  l1:'0.016 %',       l2:'0.021 %',       min:'—',       max:'0.080 %' },
+  { el:'Cr', l1:'19 %',          l2:'18.6 %',        min:'17.0 %',  max:'21.0 %'  },
+  { el:'Co', l1:'0.074 %',       l2:'0.081 %',       min:'—',       max:'1.00 %'  },
+  { el:'Cu', l1:'0.18 %',        l2:'0.16 %',        min:'—',       max:'0.30 %'  },
+  { el:'Fe', l1:'17.3 %',        l2:'17.9 %',        min:'—',       max:'Bal.'    },
+  { el:'Pb', l1:'< 0.5 mg/Kg',   l2:'< 0.5 mg/Kg',   min:'—',       max:'0.5 mg/Kg' },
+  { el:'Mg', l1:'< 0.005 %',     l2:'< 0.005 %',     min:'—',       max:'0.010 %' },
+  { el:'Mn', l1:'0.045 %',       l2:'0.052 %',       min:'—',       max:'0.35 %'  },
+  { el:'Mo', l1:'3.03 %',        l2:'2.98 %',        min:'2.80 %',  max:'3.30 %'  },
+  { el:'Nb', l1:'5.09 %',        l2:'5.14 %',        min:'4.75 %',  max:'5.50 %'  },
+  { el:'Ni', l1:'Bal. %',        l2:'Bal. %',        min:'50.0 %',  max:'55.0 %'  },
+  { el:'N',  l1:'0.011 %',       l2:'0.013 %',       min:'—',       max:'0.030 %' },
+  { el:'O',  l1:'0.021 %',       l2:'0.024 %',       min:'—',       max:'0.050 %' },
+  { el:'P',  l1:'0.005 %',       l2:'0.006 %',       min:'—',       max:'0.015 %' },
+  { el:'Se', l1:'< 0.5 mg/Kg',   l2:'< 0.5 mg/Kg',   min:'—',       max:'0.5 mg/Kg' },
+  { el:'Si', l1:'0.048 %',       l2:'0.055 %',       min:'—',       max:'0.35 %'  },
+  { el:'S',  l1:'0.002 %',       l2:'0.002 %',       min:'—',       max:'0.015 %' },
+  { el:'Ta', l1:'< 0.01 %',      l2:'< 0.01 %',      min:'—',       max:'0.05 %'  },
+  { el:'Sn', l1:'< 0.005 %',     l2:'< 0.005 %',     min:'—',       max:'0.010 %' },
+  { el:'Ti', l1:'0.95 %',        l2:'0.92 %',        min:'0.65 %',  max:'1.15 %'  },
+  { el:'W',  l1:'< 0.05 %',      l2:'< 0.05 %',      min:'—',       max:'0.10 %'  },
+  { el:'Zr', l1:'< 0.01 %',      l2:'< 0.01 %',      min:'—',       max:'0.05 %'  }
+];
+
+/* ────────── STATE ────────── */
+const S = {
+  cert:'c1', lot:CERTS[0].lots[0], view:'element',
+  elQuery:'', lotQuery:'', certQuery:'', status:'all', certSort:'date', certDir:'desc',
+  filter:'all', sortKey:null, sortDir:'asc',
+  cols:{ element:true, result:true, min:false, max:false }
+};
+
+/* ────────── ICONS ────────── */
+const EYE = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+const ERP_TICK = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const ERP_ARROW = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>';
+const EYE_OFF = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10.7 5.1A10.5 10.5 0 0 1 12 5c6.4 0 10 7 10 7a17.7 17.7 0 0 1-2.7 3.8"/><path d="M6.6 6.6A17.6 17.6 0 0 0 2 12s3.6 7 10 7a10.4 10.4 0 0 0 5.4-1.5"/><path d="M14.1 14.1a3 3 0 1 1-4.2-4.2"/><path d="m2 2 20 20"/></svg>';
+
+/* ────────── HELPERS ────────── */
+const $  = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+function toast(msg){
+  $('#toastMsg').textContent = msg;
+  const t = $('#toast'); t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function numeric(v){
+  if(!v || v === '—') return null;
+  if(/Bal\./i.test(v)) return 1e6;
+  const m = v.match(/-?\d+(\.\d+)?/);
+  if(!m) return null;
+  let n = parseFloat(m[0]);
+  if(/mg\/Kg/i.test(v)) n = n / 10000;   // normalise ppm → %
+  return n;
+}
+function bucket(r){
+  const v = r[S.lot === LOTS[0] ? 'l1' : 'l2'];
+  if(/^</.test(v)) return 'below';
+  if(/mg\/Kg/i.test(v)) return 'trace';
+  const n = numeric(v);
+  if(n === null) return 'minor';
+  return n >= 1 ? 'major' : 'minor';
+}
+
+/* ────────── SIDEBAR ────────── */
+const isUploaded = c => !!c.erp;
+
+function matchStatus(c, key){
+  if(key === 'all')      return true;
+  if(key === 'uploaded') return isUploaded(c);
+  return c.status === key;
+}
+
+function renderStatusRow(){
+  $('#statusRow').innerHTML = STATUSES.map(st => {
+    const n = CERTS.filter(c => matchStatus(c, st.key)).length;
+    const lead = st.key === 'scanned'  ? '<span class="dot"></span>'
+               : st.key === 'uploaded' ? `<span class="ico">${ERP_ARROW}</span>` : '';
+    return `<button class="stat ${S.status===st.key?'active':''}" data-status="${st.key}"
+              title="${st.key==='uploaded'?'Certificates pushed to ERP':''}">
+              ${lead}${st.label} <span class="n">${n}</span></button>`;
+  }).join('');
+
+  $$('#statusRow .stat').forEach(b => b.addEventListener('click', () => {
+    S.status = b.dataset.status;
+    renderStatusRow(); renderCerts();
+    if(S.status === 'uploaded'){ S.view = 'erp'; showView(); }
+  }));
+}
+
+function renderCerts(){
+  const q = S.certQuery.toLowerCase();
+  let rows = CERTS
+    .filter(c => matchStatus(c, S.status))
+    .filter(c => !q || (c.name + c.lots.join(' ') + c.supplier + (c.erp?.ref||'')).toLowerCase().includes(q));
+
+  rows = rows.slice().sort((a,b) => S.certSort === 'supplier'
+    ? a.supplier.localeCompare(b.supplier) || b.ts - a.ts
+    : (S.certDir === 'desc' ? b.ts - a.ts : a.ts - b.ts));
+
+  const list = $('#certList');
+  if(!rows.length){
+    list.innerHTML = `<div class="empty" style="padding:40px 16px">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h6"/></svg>
+      <h4>${S.status === 'uploaded' ? 'Nothing pushed to ERP yet' : 'No certificates'}</h4>
+      <p>${S.status === 'uploaded'
+            ? 'Open a scanned certificate and use Push to ERP.'
+            : 'Try a different filter or search term.'}</p></div>`;
+    return;
+  }
+
+  const DOT = { scanned:'', processing:'background:#F59E0B', archived:'background:#CBD5E1' };
+  const BADGE = { scanned:'', processing:'proc', archived:'arch' };
+
+  list.innerHTML = rows.map(c => `
+    <div class="cert ${c.id === S.cert ? 'sel' : ''}" data-cert="${c.id}" tabindex="0">
+      <div class="cert-top">
+        <span class="dot" style="${DOT[c.status]}"></span>
+        <span class="cert-name">${c.short}</span>
+        <span class="badge ${BADGE[c.status]}">${c.status[0].toUpperCase()+c.status.slice(1)}</span>
+      </div>
+      <div class="cert-meta">${c.date}</div>
+      <div class="cert-lot-row">
+        <span class="cert-meta">Lot: ${c.lots[0]}${c.lots.length>1?` +${c.lots.length-1}`:''}</span>
+        ${isUploaded(c) ? `<span class="erp-pill" title="Pushed to ERP ${c.erp.at} · ${c.erp.ref}">${ERP_TICK}ERP</span>` : ''}
+      </div>
+    </div>`).join('');
+
+  list.querySelectorAll('.cert').forEach(n => n.addEventListener('click', () => {
+    S.cert = n.dataset.cert;
+    const c = CERTS.find(x => x.id === S.cert);
+    LOTS = c.lots; S.lot = c.lots[0]; S.lotQuery = ''; $('#lotSearch').value = '';
+    renderCerts(); renderDoc(); renderLotTabs(); renderTable(); renderMulti();
+    if(S.view === 'erp') renderErp();
+  }));
+}
+
+function renderDoc(){
+  const c = CERTS.find(x => x.id === S.cert); if(!c) return;
+  $('#docName').textContent  = c.name;
+  $('#mSupplier').textContent = c.supplier;
+  $('#mLot').textContent      = S.lot;
+  $('#mMass').textContent     = c.mass;
+  $('#mModel').textContent    = c.model;
+
+  $('#mErp').innerHTML = isUploaded(c)
+    ? `<span class="pill synced">${ERP_TICK}Uploaded</span>
+       <b style="margin-left:7px;font-weight:600">${c.erp.at}</b>
+       <i style="margin-left:7px">· ${c.erp.ref}</i>`
+    : `<span class="pill unsynced">Not uploaded</span>`;
+
+  const btn = $('#pushBtn');
+  if(isUploaded(c)){
+    btn.className = 'btn-push done';
+    btn.disabled = true;
+    btn.setAttribute('aria-disabled','true');
+    btn.title = `Pushed ${c.erp.at} by ${c.erp.by} · ${c.erp.ref}`;
+    btn.innerHTML = `${ERP_TICK}Pushed to ERP`;
+  } else {
+    btn.className = 'btn-push';
+    btn.disabled = c.status !== 'scanned';
+    btn.removeAttribute('aria-disabled');
+    btn.style.opacity = c.status === 'scanned' ? '' : '.45';
+    btn.style.cursor  = c.status === 'scanned' ? '' : 'not-allowed';
+    btn.title = c.status === 'scanned' ? 'Push this certificate to ERP' : 'Certificate must finish scanning first';
+    btn.innerHTML = `${ERP_ARROW}Push to ERP`;
+  }
+}
+
+/* ────────── PUSH TO ERP ────────── */
+function openPush(){
+  const c = CERTS.find(x => x.id === S.cert);
+  if(!c || isUploaded(c) || c.status !== 'scanned') return;
+  $('#dlgName').textContent = c.name;
+  $('#dlgLots').textContent = c.lots.join(', ');
+  $('#dlgEls').textContent  = `${ELEMENTS.length} per lot`;
+  $('#pushModal').classList.add('open');
+  $('#pushConfirm').focus();
+}
+function closePush(){ $('#pushModal').classList.remove('open'); }
+
+function confirmPush(){
+  const c = CERTS.find(x => x.id === S.cert); if(!c) return;
+  c.erp = {
+    at:  '14 Aug 2026, 05:32 pm',
+    ref: 'ERP-' + (88300 + CERTS.filter(isUploaded).length + 1),
+    by:  'Yousef Kassem',
+    seq: 31,
+    ms:  1290 + c.lots.length * 380,
+    kb:  Math.round((28.4 + c.lots.length * 16.2) * 10) / 10
+  };
+  closePush();
+  renderStatusRow(); renderCerts(); renderDoc();
+  S.view = 'erp'; showView();
+  toast(`Pushed to ERP · ${c.erp.ref} — ${c.lots.length} lot${c.lots.length>1?'s':''}, ${ELEMENTS.length} elements each`);
+}
+
+/* ────────── ERP UPLOAD VIEW ────────── */
+/* Mirrors what a CoA push actually writes into ERP: a certificate header,
+   one lot record per lot, an assay row per element per lot, the source PDF,
+   and links out to the purchase contract line and counterparty master. */
+const ERP_ENV = 'Production · ERP-EU-01';
+
+const MOD_ICONS = {
+  cert:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h6"/>',
+  lot: '<path d="m21 16-9 5-9-5V8l9-5 9 5Z"/><path d="M3.3 7.5 12 12l8.7-4.5M12 22V12"/>',
+  assay:'<path d="M9 3v7.6L3.5 19A2 2 0 0 0 5.2 22h13.6a2 2 0 0 0 1.7-3L15 10.6V3"/><path d="M8 3h8M7.5 15h9"/>',
+  doc: '<path d="M4 4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 2v6h6M9 15h6M9 18h4"/>',
+  po:  '<path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M9 12h6M9 16h6M9 8h2"/>',
+  cpty:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'
+};
+const modIcon = k => `<span class="mod-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${MOD_ICONS[k]}</svg></span>`;
+
+function erpReport(c){
+  const n     = c.lots.length;
+  const seq   = c.erp.seq;
+  const certId = 'QCC-' + (44000 + seq);
+  const lotIds = c.lots.map((_, i) => 'LOT-' + (44190 + seq * 10 + i));
+  const docId  = 'DOC-' + (20100 + seq);
+  const assays = n * ELEMENTS.length;
+
+  const modules = [
+    { ico:'cert', name:'Certificate Register', obj:'QC_CERTIFICATE',
+      wrote:`Header record — certificate no., issue, analysis date, ${c.model}`,
+      recs:1, ref:certId, st:'written', stLabel:'Created' },
+
+    { ico:'lot', name:'Lot Master', obj:'INV_LOT',
+      wrote:`Lot reference, net mass and material grade for ${n} lot${n>1?'s':''}`,
+      recs:n, ref:lotIds[0] + (n > 1 ? ` +${n-1}` : ''), refFull:lotIds.join(', '),
+      st:'updated', stLabel:'Updated' },
+
+    { ico:'assay', name:'Assay Results', obj:'QC_ASSAY_RESULT',
+      wrote:`${ELEMENTS.length} elements × ${n} lot${n>1?'s':''} — value, unit and below-LOD flag`,
+      recs:assays, ref:'—', st:'written', stLabel:'Created' },
+
+    { ico:'doc', name:'Document Store', obj:'DOC_ATTACH',
+      wrote:`Source PDF attached to the certificate header`,
+      recs:1, ref:docId, st:'written', stLabel:'Created' },
+
+    { ico:'po', name:'Purchase Contract Line', obj:'PUR_CONTRACT_LINE',
+      wrote:`Linked to PO ${c.po} line ${c.poLine}`,
+      recs:1, ref:`${c.po} / ${c.poLine}`, st:'matched', stLabel:'Linked' },
+
+    c.cpty
+      ? { ico:'cpty', name:'Counterparty Master', obj:'CPTY_MASTER',
+          wrote:`Matched to existing counterparty — ${c.supplier}`,
+          recs:0, ref:c.cpty, st:'matched', stLabel:'Matched' }
+      : { ico:'cpty', name:'Counterparty Master', obj:'CPTY_MASTER',
+          wrote:`No supplier on the certificate — posted to the unallocated holding account`,
+          recs:0, ref:'CPTY-0000', st:'warn', stLabel:'Unmatched' }
+  ];
+
+  const mapping = [
+    ['Lot',              'INV_LOT.LOT_REF',                c.lots[0]],
+    ['Total Net Mass',   'INV_LOT.NET_QTY_KG',             c.mass === '—' ? 'null' : c.mass.replace(' kg','')],
+    ['Model',            'INV_LOT.MATERIAL_GRADE',         c.model],
+    ['Supplier',         'QC_CERTIFICATE.CPTY_CD',         c.cpty || 'CPTY-0000'],
+    ['Certificate file', 'QC_CERTIFICATE.CERT_NO',         c.name.replace(/^Certificate_|\.pdf$/g,'')],
+    ['Element',          'QC_ASSAY_RESULT.ELEMENT_CD',     'Cr'],
+    ['Result',           'QC_ASSAY_RESULT.RESULT_VAL',     '19.0'],
+    ['Result unit',      'QC_ASSAY_RESULT.UOM',            'PCT · PPM'],
+    ['“< ” prefix',      'QC_ASSAY_RESULT.LT_FLAG',        'Y / N'],
+    ['Scanned at',       'QC_CERTIFICATE.SRC_LOAD_DTM',    c.date]
+  ];
+
+  const skipped = [
+    ['Min / Max spec limits', 'Not printed on this certificate — ERP keeps its own limits from the material spec.'],
+    c.mass === '—'
+      ? ['Total Net Mass', 'Blank on the certificate, so NET_QTY_KG was left null rather than defaulted to zero.']
+      : ['Heat / melt number', 'Not captured by the scan template for this supplier layout.'],
+    ['Source PDF pages 2–3', 'Mechanical properties — outside the chemistry scope of this push.']
+  ];
+
+  return { modules, mapping, skipped,
+           total: modules.reduce((t,m) => t + m.recs, 0), certId, lotIds, docId };
+}
+
+function renderErp(){
+  const c = CERTS.find(x => x.id === S.cert); if(!c) return;
+  const host = $('#erpView');
+
+  if(!isUploaded(c)){
+    host.innerHTML = `<div class="erp-empty">
+      <span class="ring"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
+      <h4>Not uploaded to ERP</h4>
+      <p>Nothing from this certificate exists in ERP yet. Once pushed, this tab lists every ERP object that was written and the field mapping used.</p>
+      ${c.status === 'scanned'
+        ? `<button class="btn-go" id="erpPush"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>Push to ERP</button>`
+        : `<span class="st skip">Waiting for scan to finish</span>`}
+    </div>`;
+    const b = $('#erpPush'); if(b) b.addEventListener('click', openPush);
+    return;
+  }
+
+  const r = erpReport(c);
+  host.innerHTML = `
+    <div class="erp-view">
+      <div class="erp-summary">
+        <div class="sum-cell">
+          <div class="sum-k">Status</div>
+          <div class="sum-ok">${ERP_TICK} Uploaded</div>
+          <div class="sum-sub">${ERP_ENV}</div>
+        </div>
+        <div class="sum-cell">
+          <div class="sum-k">ERP reference</div>
+          <div class="sum-v">${c.erp.ref}</div>
+          <div class="sum-sub">Certificate ${r.certId}</div>
+        </div>
+        <div class="sum-cell">
+          <div class="sum-k">Pushed</div>
+          <div class="sum-v">${c.erp.at}</div>
+          <div class="sum-sub">by ${c.erp.by}</div>
+        </div>
+        <div class="sum-cell">
+          <div class="sum-k">Records written</div>
+          <div class="sum-v">${r.total}</div>
+          <div class="sum-sub">across ${r.modules.length} ERP objects</div>
+        </div>
+        <div class="sum-cell">
+          <div class="sum-k">Payload</div>
+          <div class="sum-v">${c.erp.kb} KB</div>
+          <div class="sum-sub">${(c.erp.ms/1000).toFixed(2)}s round trip</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <h3>Where it landed in ERP</h3>
+          <p>Every object this certificate wrote to, in the order the push ran.</p>
+        </div>
+        <div class="dt">
+          <div class="dt-head" style="grid-template-columns:230px 190px 1fr 84px 210px">
+            <div>ERP area</div><div>Object</div><div>What was written</div><div>Records</div><div>Reference</div>
+          </div>
+          ${r.modules.map(m => `
+            <div class="dt-row" style="grid-template-columns:230px 190px 1fr 84px 210px">
+              <div class="mod-name">${modIcon(m.ico)}<span style="min-width:0;overflow:hidden;text-overflow:ellipsis">${m.name}</span></div>
+              <div><span class="code">${m.obj}</span></div>
+              <div class="dim">${m.wrote}</div>
+              <div class="num">${m.recs || '—'}</div>
+              <div style="display:flex;align-items:center;gap:8px;justify-content:space-between">
+                <span class="code plain" title="${m.refFull || m.ref}" style="overflow:hidden;text-overflow:ellipsis">${m.ref}</span>
+                <span class="st ${m.st}">${m.stLabel}</span>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <h3>Field mapping</h3>
+          <p>How Solitude fields were written into ERP columns on this push.</p>
+        </div>
+        <div class="map-grid">
+          ${r.mapping.map(([from,to,ex]) => `
+            <div class="map-row">
+              <span class="from">${from}
+                <svg class="arw" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+              <span class="to"><span class="code">${to}</span><span class="ex">${ex}</span></span>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="sec" style="margin-bottom:6px">
+        <div class="sec-head">
+          <h3>Not sent</h3>
+          <p>Held back deliberately — worth knowing before you go looking for it in ERP.</p>
+        </div>
+        <div class="skips">
+          ${r.skipped.map(([k,v]) => `
+            <div class="skip-row"><span class="st skip">Skipped</span><b>${k}</b><span>${v}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ────────── LOT TABS ────────── */
+function renderLotTabs(){
+  const q = S.lotQuery.toLowerCase();
+  const shown = LOTS.filter(l => !q || l.toLowerCase().includes(q));
+  $('#lotTabs').innerHTML = shown.length
+    ? shown.map(l => `<button class="lot ${l===S.lot?'active':''}" data-lot="${l}">${l}</button>`).join('')
+    : `<span style="font-size:13px;color:#94A3B8;padding:0 4px;align-self:center">No lots match "${S.lotQuery}"</span>`;
+  $$('#lotTabs .lot').forEach(b => b.addEventListener('click', () => {
+    S.lot = b.dataset.lot; renderLotTabs(); renderTable(); renderDoc();
+  }));
+}
+
+/* ────────── TABLE ────────── */
+function visibleRows(){
+  let rows = ELEMENTS.slice();
+  const key = S.lot === LOTS[0] ? 'l1' : 'l2';
+
+  if(S.filter !== 'all') rows = rows.filter(r => bucket(r) === S.filter);
+
+  const q = S.elQuery.trim().toLowerCase();
+  if(q) rows = rows.filter(r => r.el.toLowerCase().startsWith(q) || r[key].toLowerCase().includes(q));
+
+  if(S.sortKey){
+    const dir = S.sortDir === 'asc' ? 1 : -1;
+    rows.sort((a,b) => {
+      if(S.sortKey === 'element') return a.el.localeCompare(b.el) * dir;
+      const f = S.sortKey === 'result' ? key : S.sortKey;
+      const av = numeric(a[f]), bv = numeric(b[f]);
+      if(av === null && bv === null) return 0;
+      if(av === null) return 1;
+      if(bv === null) return -1;
+      return (av - bv) * dir;
+    });
+  }
+  return rows;
+}
+
+function renderTable(){
+  const key = S.lot === LOTS[0] ? 'l1' : 'l2';
+  const rows = visibleRows();
+  const body = $('#tbody');
+
+  if(!rows.length){
+    body.innerHTML = `<div class="empty">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <h4>No elements match your filters</h4>
+      <p>Clear the search or choose “All Elements”.</p></div>`;
+  } else {
+    body.innerHTML = rows.map(r => `
+      <div class="tr grid">
+        <div class="td">${S.cols.element ? r.el : '<span class="lt">—</span>'}</div>
+        <div class="td">${S.cols.result ? fmt(r[key]) : '<span class="lt">—</span>'}</div>
+        <div class="td ${S.cols.min?'':'dim'}">${S.cols.min ? r.min : '—'}</div>
+        <div class="td ${S.cols.max?'':'dim'}">${S.cols.max ? r.max : '—'}</div>
+      </div>`).join('');
+  }
+  $('#count').textContent = `${rows.length} element${rows.length===1?'':'s'} displayed`;
+}
+function fmt(v){ return /^< /.test(v) ? `<span class="lt">&lt;</span>&nbsp;${v.slice(2)}` : v; }
+
+function renderMulti(){
+  const c = CERTS.find(x => x.id === S.cert);
+  const single = c.lots.length < 2;
+  $('#ml1').textContent = c.lots[0];
+  $('#ml2').textContent = single ? '—' : c.lots[1];
+  $('#mlCount').textContent = single
+    ? `${ELEMENTS.length} elements · single lot on this certificate`
+    : `${ELEMENTS.length} elements · 2 lots compared`;
+  if(single){
+    $('#mlBody').innerHTML = `<div class="empty">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+      <h4>Only one lot on this certificate</h4>
+      <p>Multi Lot View compares two or more lots side by side.</p></div>`;
+    return;
+  }
+  $('#mlBody').innerHTML = ELEMENTS.map(r => {
+    const a = numeric(r.l1), b = numeric(r.l2);
+    let d = '<span class="delta same">—</span>';
+    if(a !== null && b !== null && a < 1e6 && a !== b){
+      const pct = ((b - a) / a) * 100;
+      if(Math.abs(pct) >= 0.5)
+        d = `<span class="delta up">${pct > 0 ? '+' : ''}${pct.toFixed(1)}%</span>`;
+    }
+    return `<div class="tr grid2" style="display:grid;grid-template-columns:172px 1fr 1fr 130px">
+      <div class="td">${r.el}</div>
+      <div class="td">${fmt(r.l1)}</div>
+      <div class="td">${fmt(r.l2)}</div>
+      <div class="td">${d}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ────────── COLUMN EYES ────────── */
+function paintEyes(){
+  $$('[data-eye]').forEach(btn => {
+    const k = btn.dataset.eye;
+    btn.innerHTML = S.cols[k] ? EYE : EYE_OFF;
+    btn.title = S.cols[k] ? 'Hide column' : 'Show column';
+    const th = btn.closest('.th');
+    th.classList.toggle('off', !S.cols[k]);
+  });
+}
+
+/* ────────── EXPORT ────────── */
+function exportCSV(){
+  const key = S.lot === LOTS[0] ? 'l1' : 'l2';
+  const rows = visibleRows();
+  const csv = ['Element,Result,Min,Max']
+    .concat(rows.map(r => `${r.el},"${r[key]}","${r.min}","${r.max}"`)).join('\n');
+  const url = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+  const a = document.createElement('a');
+  a.href = url; a.download = `${S.lot}_elements.csv`; a.click();
+  URL.revokeObjectURL(url);
+  toast(`Exported ${rows.length} elements — ${S.lot}_elements.csv`);
+}
+
+/* ────────── EVENTS ────────── */
+$('#elSearch').addEventListener('input', e => { S.elQuery = e.target.value; renderTable(); });
+$('#lotSearch').addEventListener('input', e => { S.lotQuery = e.target.value; renderLotTabs(); });
+$('#certSearch').addEventListener('input', e => { S.certQuery = e.target.value; renderCerts(); });
+
+
+
+$$('.sb-tab').forEach(b => b.addEventListener('click', () => {
+  $$('.sb-tab').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  toast(b.dataset.sbtab === 'supplier' ? 'Grouped by supplier' : 'Sorted by latest activity');
+}));
+
+$$('.vtab').forEach(b => b.addEventListener('click', () => {
+  $$('.vtab').forEach(x => x.classList.remove('active'));
+  b.classList.add('active'); S.view = b.dataset.view;
+  showView();
+}));
+
+function showView(){
+  $$('.vtab').forEach(x => x.classList.toggle('active', x.dataset.view === S.view));
+  $('#elementView').style.display = S.view === 'element' ? 'flex' : 'none';
+  $('#multiView').style.display   = S.view === 'multi'   ? 'flex' : 'none';
+  $('#erpView').style.display    = S.view === 'erp'    ? 'flex' : 'none';
+  if(S.view === 'erp') renderErp();
+}
+
+$$('[data-eye]').forEach(b => b.addEventListener('click', () => {
+  S.cols[b.dataset.eye] = !S.cols[b.dataset.eye];
+  paintEyes(); renderTable();
+}));
+
+$$('[data-sort]').forEach(b => b.addEventListener('click', () => {
+  const k = b.dataset.sort;
+  if(S.sortKey === k) S.sortDir = S.sortDir === 'asc' ? 'desc' : 'asc';
+  else { S.sortKey = k; S.sortDir = 'asc'; }
+  $$('[data-sort]').forEach(x => x.classList.toggle('act', x.dataset.sort === S.sortKey));
+  renderTable();
+}));
+
+const fBtn = $('#filterBtn'), fMenu = $('#filterMenu');
+fBtn.addEventListener('click', e => { e.stopPropagation(); fMenu.classList.toggle('open'); });
+document.addEventListener('click', () => fMenu.classList.remove('open'));
+fMenu.addEventListener('click', e => e.stopPropagation());
+$$('#filterMenu .menu-item').forEach(mi => mi.addEventListener('click', () => {
+  S.filter = mi.dataset.filter;
+  $$('#filterMenu .menu-item').forEach(x => x.classList.toggle('on', x === mi));
+  $('#filterLabel').textContent = mi.textContent.trim();
+  fBtn.classList.toggle('on', S.filter !== 'all');
+  fMenu.classList.remove('open');
+  renderTable();
+}));
+
+$('#sortDate').addEventListener('click', () => {
+  S.certSort = 'date'; S.certDir = S.certDir === 'desc' ? 'asc' : 'desc';
+  $('#sortDate').classList.add('active'); $('#sortSupplier').classList.remove('active');
+  $('#sortDateArrow').style.transform = S.certDir === 'desc' ? '' : 'rotate(180deg)';
+  renderCerts();
+});
+$('#sortSupplier').addEventListener('click', () => {
+  S.certSort = 'supplier';
+  $('#sortSupplier').classList.add('active'); $('#sortDate').classList.remove('active');
+  renderCerts();
+});
+
+$('#mErp').addEventListener('click', () => { S.view = 'erp'; showView(); });
+$('#mErp').style.cursor = 'pointer';
+$('#mErp').title = 'View ERP upload detail';
+
+$('#pushBtn').addEventListener('click', openPush);
+$('#pushCancel').addEventListener('click', closePush);
+$('#pushConfirm').addEventListener('click', confirmPush);
+$('#pushModal').addEventListener('click', e => { if(e.target.id === 'pushModal') closePush(); });
+
+$('#exportTop').addEventListener('click', exportCSV);
+$('#exportBottom').addEventListener('click', exportCSV);
+$('#exportMulti').addEventListener('click', () => toast('Exported multi-lot comparison — S10841_multilot.csv'));
+$('#uploadBtn').addEventListener('click', () => toast('Upload dialog — drop a PDF certificate to scan'));
+$$('[data-act]').forEach(b => b.addEventListener('click', () => toast(b.dataset.act)));
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ fMenu.classList.remove('open'); closePush(); }
+  if(e.key === '/' && document.activeElement.tagName !== 'INPUT'){ e.preventDefault(); $('#elSearch').focus(); }
+});
+
+/* ────────── INIT ────────── */
+paintEyes();
+renderStatusRow();
+renderCerts();
+renderDoc();
+renderLotTabs();
+renderTable();
+renderMulti();
+</script>
+</body>
+</html>
