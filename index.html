@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yousef Kassem · Prototypes</title>
+<style>
+  :root { --ink: #1a1a1a; --soft: #555; --line: #e4e2dd; --bg: #fbfaf7; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.55 Georgia, "Times New Roman", serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 56px 20px 72px; }
+  h1 { font: 600 30px/1.2 "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif; margin: 0 0 6px; }
+  .intro { color: var(--soft); max-width: 620px; margin: 0 0 40px; }
+  .intro a { color: inherit; }
+  .item { display: grid; grid-template-columns: 300px 1fr; gap: 24px; padding: 28px 0;
+          border-top: 1px solid var(--line); align-items: start; }
+  .item img { width: 100%; border: 1px solid var(--line); border-radius: 4px; display: block; }
+  h2 { font: 600 19px/1.3 "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif; margin: 2px 0 6px; }
+  h2 a { color: var(--ink); text-decoration: none; }
+  h2 a:hover { text-decoration: underline; }
+  p { margin: 0 0 8px; }
+  .open { font: 15px "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif; color: var(--ink); }
+  footer a { color: var(--ink); }
+  footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--soft); font-size: 15px; }
+  @media (max-width: 640px) { .item { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Yousef Kassem</h1>
+  <p class="intro">Product prototypes I designed and coded at Solitude.ai, where I'm co-founder and head of product.
+    Each one was tested with users before it went to engineering. Company names, people and figures have been
+    replaced with made-up ones. They work best on a laptop screen.</p>
+
+  <div class="item">
+    <a href="carrier-payables-workspace.html"><img src="img/carrier-payables-workspace.jpg" alt="Carrier payables workspace"></a>
+    <div>
+      <h2><a href="carrier-payables-workspace.html">Carrier payables workspace</a></h2>
+      <p>The core product screen. It lines up the rate confirmation, bill of lading and invoice for each shipment,
+        flags what doesn't match, and lets an AP clerk dispute or approve it. Also holds the rules set-up, which
+        went through five versions.</p>
+      <a class="open" href="carrier-payables-workspace.html">Open prototype</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <a href="operations-dashboard.html"><img src="img/operations-dashboard.jpg" alt="Operations dashboard"></a>
+    <div>
+      <h2><a href="operations-dashboard.html">Operations dashboard</a></h2>
+      <p>One view for a 3PL's leadership across freight recovery, warehouse throughput, staffing and client service,
+        built to show how the product rolls out in phases.</p>
+      <a class="open" href="operations-dashboard.html">Open prototype</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <a href="dual-signup-flow.html"><img src="img/dual-signup-flow.jpg" alt="Sign-up flow"></a>
+    <div>
+      <h2><a href="dual-signup-flow.html">Sign-up for self-serve users and invited teammates</a></h2>
+      <p>Five clickable states. Self-serve users get a trial workspace with a usage meter. Invited teammates arrive
+        through a link that already knows their workspace. Hitting the trial limit opens a call booking, not a paywall.</p>
+      <a class="open" href="dual-signup-flow.html">Open prototype</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <a href="agent-builder.html"><img src="img/agent-builder.jpg" alt="Agent builder"></a>
+    <div>
+      <h2><a href="agent-builder.html">Computer-use agent builder</a></h2>
+      <p>Setting up an agent that works inside a customer's TMS for them, including desktop software with no API.
+        This is version nine.</p>
+      <a class="open" href="agent-builder.html">Open prototype</a>
+    </div>
+  </div>
+
+  <footer>
+    I also built the company website, <a href="https://solitude.ai">solitude.ai</a>.
+    More on <a href="https://www.linkedin.com/in/yousef-kassem-0b6b25180/">LinkedIn</a>.
+  </footer>
+</main>
+</body>
+</html>
