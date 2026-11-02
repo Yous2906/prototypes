@@ -70,11 +70,11 @@
     ],
 
     "certificates-workspace": [
-      { target: function () { return q('.cert[data-cert="c2"]'); },
-        text: "Each card is a supplier certificate the AI has already read. Open one." },
+      { target: function () { return q('.cert[data-cert="c5"]'); },
+        text: "Each card is a supplier certificate the AI has already read. Open the highlighted one, which hasn't been sent on yet." },
       { target: function () { return q('.vtab[data-view="multi"]'); },
         text: "The quality team works in tables, so this does too. Switch to Multi Lot View to compare lots side by side." },
-      { target: function () { return q("#pushBtn"); },
+      { target: function () { return q("#pushBtn:not([disabled])"); },
         text: "Their job is done when the numbers are in their own system. Click Push to ERP." },
       { target: function () {
           return inOpen("#pushModal", function (b) {
