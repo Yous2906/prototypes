@@ -17,13 +17,15 @@
   .item { display: grid; grid-template-columns: 280px 1fr; gap: 26px; padding: 30px 0;
           border-top: 1px solid var(--line); align-items: start; }
   .item img { width: 100%; border: 1px solid var(--line); border-radius: 4px; display: block; }
-  h2 { font: 600 19px/1.3 "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif; margin: 2px 0 10px; }
+  h2 { font: 600 19px/1.3 "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif; margin: 2px 0 8px; }
   h2 a { color: var(--ink); text-decoration: none; }
   h2 a:hover { text-decoration: underline; }
   .lbl { display: block; font: 600 12px/1.4 "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif;
-         letter-spacing: .04em; color: var(--soft); margin: 10px 0 2px; }
+         letter-spacing: .05em; color: var(--soft); margin: 12px 0 3px; }
   p { margin: 0 0 6px; font-size: 16px; }
-  .open { display: inline-block; margin-top: 8px; font: 15px "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif; color: var(--ink); }
+  ul { margin: 0 0 6px; padding-left: 18px; font-size: 16px; }
+  li { margin: 0 0 5px; }
+  .open { display: inline-block; margin-top: 10px; font: 15px "Gill Sans", "Gill Sans MT", "Helvetica Neue", sans-serif; color: var(--ink); }
   footer a { color: var(--ink); }
   footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--soft); font-size: 15px; }
   @media (max-width: 640px) { .item { grid-template-columns: 1fr; } }
@@ -32,30 +34,35 @@
 <body>
 <main>
   <h1>Yousef Kassem</h1>
-  <p class="intro">Things I designed at Solitude.ai, where I'm co-founder and head of product. We sold AI that handles
-    back-office paperwork for freight and metals companies.</p>
-  <p class="intro">One idea runs through all of them. I design around how experienced operators already work in the
-    software they know, automate what can safely be automated, and keep a person in the loop, because in these
-    industries a wrong data entry costs the company real money.</p>
+  <p class="intro">Products I designed at Solitude.ai, where I'm co-founder and head of product. Solitude sells AI that
+    does back-office paperwork for freight brokers, logistics companies and metals distributors.</p>
+  <p class="intro">How I build: I start from how experienced operators already do the job in the software they know,
+    automate what can safely be automated, and keep a person in control, because in these industries a wrong entry
+    costs the company money.</p>
   <p class="intro" style="margin-bottom:40px">Each prototype opens with a short guided tour: an amber outline shows
-    what to click next and a card explains why. Company names, people and figures inside are made up. They work best
-    on a laptop.</p>
+    what to click next. Company names, people and figures inside are made up. Best viewed on a laptop.</p>
 
   <div class="item">
     <a href="carrier-payables-workspace.html"><img src="img/carrier-payables-workspace.jpg" alt="Carrier payables workspace"></a>
     <div>
       <h2><a href="carrier-payables-workspace.html">Carrier payables workspace</a></h2>
-      <span class="lbl">THE PROBLEM</span>
-      <p>Before a freight broker pays a trucking company, someone checks three documents for every shipment: the agreed
-        rate, the delivery paperwork and the invoice. Our customers were doing this by hand, hundreds of times a week.</p>
-      <span class="lbl">WHAT I DESIGNED AND WHY</span>
-      <p>The screen looks and behaves like the spreadsheets payables clerks already work in: one row per shipment,
-        problems flagged in colour, and the documents side by side so nothing needs a second window. Users told us they
-        wanted to set their own checking rules without asking us every time, so over five versions I cut the rules
-        set-up down until a clerk could manage it alone from settings.</p>
-      <span class="lbl">WHAT IT ACHIEVED</span>
-      <p>Used by two customers. One of them, a logistics company checking 500 invoices a week, saves more than
-        30 hours of manual work and over $200K a year.</p>
+      <span class="lbl">WHAT YOU'RE LOOKING AT</span>
+      <p>The screen a freight broker's accounts clerk uses to decide whether to pay a trucking company's invoice.</p>
+      <span class="lbl">WHY I BUILT IT</span>
+      <p>Before paying, the clerk has to confirm that three documents agree for every shipment: the price agreed with
+        the trucker, the proof of delivery, and the invoice. Our customers did this by hand, hundreds of times a week,
+        and every mismatch they missed was money paid out by mistake.</p>
+      <span class="lbl">KEY DECISIONS</span>
+      <ul>
+        <li>The AI checks every shipment. The clerk only reviews what it flags, with the documents open beside it, and
+          can dispute an overcharge in one click.</li>
+        <li>I laid it out in rows and columns like the spreadsheets clerks already used, so there was nothing new to learn.</li>
+        <li>Customers asked to set their own checking rules instead of asking us each time. Over five versions I cut the
+          rules set-up down until a clerk could manage it alone from Settings.</li>
+      </ul>
+      <span class="lbl">RESULT</span>
+      <p>Used by two customers. One logistics company checks 500 invoices a week with it, saving more than 30 hours of
+        manual work and over $200K a year.</p>
       <a class="open" href="carrier-payables-workspace.html">Open the prototype</a>
     </div>
   </div>
@@ -64,18 +71,25 @@
     <a href="certificates-workspace.html"><img src="img/certificates-workspace.jpg" alt="Certificates workspace"></a>
     <div>
       <h2><a href="certificates-workspace.html">Certificates workspace</a></h2>
-      <span class="lbl">THE PROBLEM</span>
-      <p>A UK metals distributor received quality certificates from hundreds of suppliers, each in a different format,
-        and typed the results into their own system by hand. A wrong number on a safety-critical part has serious
-        consequences.</p>
-      <span class="lbl">WHAT I DESIGNED AND WHY</span>
-      <p>Their quality team lives in Excel, so the main screen is a dense table, one column per element, edited in
-        place. A value the supplier left out is shown differently from a value that fails, so nobody rejects a good
-        part by mistake. The main button sends the results straight into their system, because that is the moment
-        their job is done. We changed it daily alongside them: with AI doing the building, engineering stopped being
-        the bottleneck and the pace was set by how fast they could give us feedback.</p>
-      <span class="lbl">WHAT IT ACHIEVED</span>
-      <p>They bought it. They now process four times as many certificates, and checking accuracy became far easier.</p>
+      <span class="lbl">WHAT YOU'RE LOOKING AT</span>
+      <p>The screen a metals distributor's quality team uses to check mill certificates (the documents proving a batch
+        of metal has the right chemical make-up) before the results go into their stock system.</p>
+      <span class="lbl">WHY I BUILT IT</span>
+      <p>Certificates arrived from hundreds of suppliers, each in its own layout, and were retyped by hand. One wrong
+        figure can let a batch through that doesn't meet spec, on parts where that matters for safety. Accuracy came
+        before speed.</p>
+      <span class="lbl">KEY DECISIONS</span>
+      <ul>
+        <li>One table, one column per element, edited in place, because the team already did this work in Excel.</li>
+        <li>A value the supplier didn't report looks different from a value that fails, so nobody rejects a good batch
+          by mistake.</li>
+        <li>The main button sends the results into their system, because that, not saving, is the end of their job.
+          A confirmation step comes first.</li>
+        <li>We changed it daily with the customer. AI did most of the building, so engineering stopped being the
+          bottleneck. How fast they could give feedback set the pace.</li>
+      </ul>
+      <span class="lbl">RESULT</span>
+      <p>They bought it. Certificate throughput went up four times, and accuracy became far easier to track.</p>
       <a class="open" href="certificates-workspace.html">Open the prototype</a>
     </div>
   </div>
@@ -84,16 +98,23 @@
     <a href="teach-an-agent.html"><img src="img/teach-an-agent.jpg" alt="Teach an agent"></a>
     <div>
       <h2><a href="teach-an-agent.html">Teach an agent by showing it</a></h2>
-      <span class="lbl">THE PROBLEM</span>
-      <p>To go live, we had to connect to each customer's transport management software. Much of it is old, the
-        vendors' IT teams were hard to reach, and every new customer ended up waiting on someone else's integration.</p>
-      <span class="lbl">WHAT I DESIGNED AND WHY</span>
-      <p>Instead of integrating, the agent watches the user do the job once, in the web portal or the desktop app, and
-        then enters the data itself, whether or not the software has an API. It asks a few plain questions about the
-        judgment calls, sums up what it will do in one paragraph, and does its first run while the user watches. The
-        person stays in control because these entries move money.</p>
-      <span class="lbl">WHAT IT ACHIEVED</span>
-      <p>It took the integration bottleneck out of getting customers live. You can click through all six steps.</p>
+      <span class="lbl">WHAT YOU'RE LOOKING AT</span>
+      <p>How a broker's operations lead sets up an AI agent to do data entry for them inside their transport management
+        system (TMS), the software where loads are booked and billed.</p>
+      <span class="lbl">WHY I BUILT IT</span>
+      <p>Every new customer needed us connected to their TMS. Most run old systems with no usable API, and the vendors'
+        IT teams took weeks to reply, if they replied at all. Deals stalled while we waited.</p>
+      <span class="lbl">KEY DECISIONS</span>
+      <ul>
+        <li>No integration at all. The user does the task once in their TMS, in the web or desktop version, and the
+          agent watches and then repeats it, API or not.</li>
+        <li>The agent asks about judgment calls in plain questions, such as "Should I post this myself or check with
+          you first?", instead of showing a settings page.</li>
+        <li>It explains what it will do in one paragraph and does its first run while the user watches, because these
+          entries move money.</li>
+      </ul>
+      <span class="lbl">RESULT</span>
+      <p>The TMS integration stopped being a blocker to getting customers live.</p>
       <a class="open" href="teach-an-agent.html">Open the prototype</a>
     </div>
   </div>
@@ -101,18 +122,22 @@
   <div class="item">
     <a href="dual-signup-flow.html"><img src="img/dual-signup-flow.jpg" alt="Sign-up flow"></a>
     <div>
-      <h2><a href="dual-signup-flow.html">Sign-up for self-serve users and invited teammates</a></h2>
-      <span class="lbl">THE PROBLEM</span>
-      <p>Our sign-up asked everyone for an invite code. That suited a closed beta, but it turned away people who wanted
-        to try the product on their own before talking to us.</p>
-      <span class="lbl">WHAT I DESIGNED AND WHY</span>
-      <p>One link works for both groups. Someone evaluating us gets a trial workspace straight away, and an invited
-        teammate lands inside their company's workspace. The trial is the full product with a cap on volume, not a
-        cut-down version. Reaching the cap opens a short call booking ("You've earned a conversation") instead of a
-        paywall, and their work carries over.</p>
-      <span class="lbl">WHAT IT WAS FOR</span>
-      <p>Letting buyers prove the value to themselves first, and turning the end of a trial into a sales conversation
-        rather than a dead end.</p>
+      <h2><a href="dual-signup-flow.html">Sign-up and free trial</a></h2>
+      <span class="lbl">WHAT YOU'RE LOOKING AT</span>
+      <p>The first screens a new user sees: creating an account, the free trial, and what happens when the trial runs out.</p>
+      <span class="lbl">WHY I BUILT IT</span>
+      <p>Sign-up required an invite code. That suited a closed beta, but it turned away buyers who wanted to test the
+        product themselves before talking to sales.</p>
+      <span class="lbl">KEY DECISIONS</span>
+      <ul>
+        <li>One sign-up link for two kinds of user. Someone evaluating us gets their own trial workspace straight away.
+          A colleague invited by a customer lands inside their company's workspace.</li>
+        <li>The trial is the whole product with a cap on volume, not a cut-down version, so buyers judge the real thing.</li>
+        <li>Reaching the cap offers a short call ("You've earned a conversation") instead of a paywall, and their work
+          carries over.</li>
+      </ul>
+      <span class="lbl">PURPOSE</span>
+      <p>Let buyers prove the value to themselves first, then turn the end of the trial into a sales conversation.</p>
       <a class="open" href="dual-signup-flow.html">Open the prototype</a>
     </div>
   </div>
@@ -120,16 +145,20 @@
   <div class="item">
     <a href="operations-dashboard.html"><img src="img/operations-dashboard.jpg" alt="Operations dashboard"></a>
     <div>
-      <h2><a href="operations-dashboard.html">Operations dashboard</a></h2>
-      <span class="lbl">THE PROBLEM</span>
-      <p>A warehouse logistics company wanted one AI platform across freight, warehouse and staffing. Their last
-        software rollout had taken two years, and they were wary of another.</p>
-      <span class="lbl">WHAT I DESIGNED AND WHY</span>
-      <p>I split the platform into three phases that each pay off on their own: a no-risk freight audit first, then
-        their warehouse data, then everything joined up. The home screen shows where they are in the rollout next to
-        today's numbers, so leadership can see value at every step.</p>
-      <span class="lbl">WHAT IT WAS FOR</span>
-      <p>A pilot proposal. It was never built. It let us offer a pilot without asking for a big upfront commitment.</p>
+      <h2><a href="operations-dashboard.html">Operations dashboard (pilot proposal)</a></h2>
+      <span class="lbl">WHAT YOU'RE LOOKING AT</span>
+      <p>A proposal, not a shipped product: the home screen I designed to pitch a pilot to a warehouse logistics company.</p>
+      <span class="lbl">WHY I BUILT IT</span>
+      <p>They wanted one AI platform covering freight, warehouse and staffing. Their last software rollout had taken
+        two years, and they didn't want another long project.</p>
+      <span class="lbl">KEY DECISIONS</span>
+      <ul>
+        <li>The rollout is split into three phases that each pay for themselves: a no-risk freight audit first, then
+          their warehouse data, then everything combined.</li>
+        <li>The screen shows where they are in the rollout next to today's numbers, so leadership sees value at every stage.</li>
+      </ul>
+      <span class="lbl">PURPOSE</span>
+      <p>To win a pilot without asking for a big upfront commitment. We presented it to them. It was never built.</p>
       <a class="open" href="operations-dashboard.html">Open the prototype</a>
     </div>
   </div>
@@ -138,14 +167,20 @@
     <a href="https://solitude.ai"><img src="img/solitude-ai.jpg" alt="solitude.ai landing page"></a>
     <div>
       <h2><a href="https://solitude.ai">solitude.ai, the company website</a></h2>
-      <span class="lbl">THE PROBLEM</span>
-      <p>In discovery interviews, the same question kept coming up: what value do we actually get from this?</p>
-      <span class="lbl">WHAT I DESIGNED AND WHY</span>
-      <p>After we signed our biggest client, I rewrote the site around the pain that mattered most to freight brokers,
-        matching incoming payments to invoices, and led with the outcome instead of a list of features. The ROI
-        calculator comes before "Book a call" because it answers the value question before a sales conversation starts.
-        I built and published it myself in Replit.</p>
-      <span class="lbl">WHAT I LEARNED</span>
+      <span class="lbl">WHAT YOU'RE LOOKING AT</span>
+      <p>Solitude's live marketing website. I built it and host it on Replit.</p>
+      <span class="lbl">WHY I BUILT IT</span>
+      <p>In discovery interviews, buyers kept asking the same thing: what value do we get from this? After we signed our
+        largest client, we refocused on the problem they cared about most, and the site had to answer that question
+        straight away.</p>
+      <span class="lbl">KEY DECISIONS</span>
+      <ul>
+        <li>Lead with one outcome freight brokers care about, incoming payments matched to invoices automatically,
+          instead of a list of features.</li>
+        <li>Put an ROI calculator before "Book a call", so buyers see the value in their own numbers before they speak
+          to sales.</li>
+      </ul>
+      <span class="lbl">WHAT IT TAUGHT ME</span>
       <p>Lead with business outcomes, not features.</p>
       <a class="open" href="https://solitude.ai">Visit the live site</a>
     </div>
