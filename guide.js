@@ -101,55 +101,8 @@
         text: "Phase 3 gives their own customers a view. Open Client Portal." },
       { final: true,
         text: "Each phase shows value before the next one starts, so the customer never commits to a long rollout up front." }
-    ],
-
-    "dual-signup-flow": [
-      { target: function () { return q("button.btn-primary", "Create account"); },
-        text: "This is what someone trying us out sees, with no invite code in the way. Click Create account." },
-      { target: function () { return startsWith("button", "5."); },
-        text: "They land in a trial workspace with the full product and a usage meter. Now jump to what happens at the limit." },
-      { target: function () { return startsWith("button", "3."); },
-        text: "A call booking, not a paywall, and their work carries over. Now the other path: a teammate arriving from an invite link." },
-      { final: true,
-        text: "One link, two paths. The notes on screen explain each choice, and the Annotations button turns them off." }
-    ],
-
-    "teach-an-agent": [
-      { target: function () { return q(".start-card.primary"); },
-        text: "Instead of integrating with old software, the user shows the agent the job once. Click Record." },
-      { target: function () { return q(".rec-stop"); },
-        done: function () { return h1Has("A few quick things"); },
-        clickAdvances: false,
-        text: "The agent says what it is learning as it watches. Let it finish, or click Stop to skip ahead." },
-      { target: function () {
-          var more = q("button", "everything");
-          if (more) return more;
-          var msgs = document.querySelectorAll(".chat > .msg:not(.user)");
-          var last = msgs[msgs.length - 1];
-          if (!last) return null;
-          return Array.prototype.filter.call(last.querySelectorAll(".qr"), function (x) {
-            return vis(x) && !x.classList.contains("picked");
-          })[0] || null;
-        },
-        done: function () { return !!q("button", "Show me what you learned"); },
-        clickAdvances: false,
-        text: "It only asks about judgment calls. Pick an answer to each question." },
-      { target: function () { return q("button", "Show me what you learned"); },
-        text: "See the whole agent summed up in one paragraph." },
-      { target: function () { return q(".judgment"); },
-        text: "The yellow parts are judgment calls you can change. Click one." },
-      { target: function () { return q(".pop .ch"); },
-        done: function () { return !q(".pop"); },
-        text: "Pick an option." },
-      { target: function () { return q("button", "Watch it do one"); },
-        text: "Before it goes live, watch it do one real run." },
-      { target: function () { return q("button", "Go ahead"); },
-        text: "It stops before anything permanent and waits for your OK. Approve it when the button appears." },
-      { target: function () { return q("button", "Turn the agent on"); },
-        text: "Switch the agent on." },
-      { final: true,
-        text: "Show it once, answer a few questions, watch one run, then let it work, with a person in control throughout." }
     ]
+
   };
 
   var key = location.pathname.split("/").pop().replace(".html", "");
